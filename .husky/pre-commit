@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Obtiene la lista de archivos que se han modificado en el commit actual
+changed_files=$(git diff --cached --name-only --diff-filter=ACM | grep '\.ts$')
+
+# Verifica si hay archivos TypeScript modificados
+if [ -n "$changed_files" ]; then
+  # Ejecuta ESLint solo si hay archivos TypeScript modificados
+  echo "Linting modified TypeScript files..."
+  echo "$changed_files" | xargs eslint
+fi
+
+exit 0
